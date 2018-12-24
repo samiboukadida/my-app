@@ -1,0 +1,21 @@
+version: '3.5'
+
+services:
+
+  ng6-project-compose:
+    container_name: my-app-compose-container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: my-app-compose-image
+    volumes:
+      - '.:/usr/src/app'
+      #- '/usr/src/app/node_modules'
+    ports:
+      - '4200:4200'
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    #command: /usr/src/app/entrypoint.sh
+    #entrypoint: /usr/src/app/entrypoint.sh
+    #command: ng  serve  --host 0.0.0.0
+    tty: true

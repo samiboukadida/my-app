@@ -1,0 +1,66 @@
+<mat-card>
+
+  <mat-card-header>
+    <div class="example-container">
+      <mat-form-field>
+        <input (keyup)="searchTerm$.next($event.target.value)" matInput
+               placeholder="Tap to search">
+      </mat-form-field>
+    </div>
+  </mat-card-header>
+
+  <!-- spinner my-table-->
+  <mat-spinner *ngIf="(showSpinner$ | async)" class="centered_spinner" diameter="50" strokeWidth="3"></mat-spinner>
+  <!-- manage errorMessage -->
+  <!--<div *ngIf="(errorMessage$ | async) != ''; then  MyNoData ;else MyNoError"></div>
+
+  <ng-template #MyError>
+    <div class="alert-danger">{{ (errorMessage$ | async)}}</div>
+  </ng-template>
+  <ng-template #MyNoData>
+    <div class="alert-danger">No data</div>
+  </ng-template>-->
+
+  <!--<ng-template #MyNoError>-->
+  <mat-card-content>
+    <div class="mat-elevation-z8">
+      <table #myTable [dataSource]="dataSource" aria-label="Elements" class="full-width-table" mat-table matSort
+
+      >
+        <!-- Id Column -->
+        <ng-container matColumnDef="ville">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>Ville</th>
+          <td *matCellDef="let row" mat-cell>{{row.ville}}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="tco_libelle">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>Libellé</th>
+          <td *matCellDef="let row" mat-cell>{{row.tco_libelle}}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="code_postal">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>Code Postal</th>
+          <td *matCellDef="let row" mat-cell>{{row.code_postal}}</td>
+        </ng-container>
+
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+      </table>
+
+      <mat-paginator #paginator (page)="currentPage$.next($event.pageIndex)"
+                     [length]="dataSource?.data?.length || 0"
+                     [pageIndex]="currentPage$.value"
+                     [pageSizeOptions]="[10, 25, 50, 100, 250]"
+                     [pageSize]="5"
+                     [style.display]="dataSource ? 'block' : 'none'"
+                     showFirstLastButtons="true"
+
+      >
+      </mat-paginator>
+    </div>
+  </mat-card-content>
+  <!--</ng-template>-->
+
+</mat-card>

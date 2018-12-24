@@ -1,0 +1,59 @@
+<mat-sidenav-container #myContainer [ngClass]="currentThemeName" class="sidenav-container all-wrap">
+  <mat-sidenav #drawer [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
+               [opened]="!(isHandset$ | async)"
+               class="sidenav"
+               fixedInViewport="true">
+    <mat-toolbar>Menu</mat-toolbar>
+
+    <mat-nav-list>
+      <a [routerLinkActiveOptions]="{exact:true}" mat-list-item routerLink="home" routerLinkActive="active">
+        <mat-icon>home</mat-icon>
+        Home</a>
+      <a [routerLinkActiveOptions]="{exact:true}" mat-list-item routerLink="recherche-ratp" routerLinkActive="active">
+        <mat-icon>table_chart</mat-icon>
+        Recherche Ratp</a>
+      <a [routerLinkActiveOptions]="{exact:true}" mat-list-item routerLink="recherche-github" routerLinkActive="active">
+        <mat-icon>table_chart</mat-icon>
+        Recherche Github</a>
+      <a [routerLinkActiveOptions]="{exact:true}" mat-list-item routerLink="mock-api" routerLinkActive="active">
+        <mat-icon>table_chart</mat-icon>
+        Mock Api</a>
+      <a href="#" mat-list-item>Link 1</a>
+      <a href="#" mat-list-item>Link 2</a>
+      <a href="#" mat-list-item>Link 3</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content class="page-wrap">
+    <!--<header role="banner">-->
+    <mat-toolbar color="primary">
+      <button
+        (click)="drawer.toggle()"
+        *ngIf="true || (isHandset$ | async)"
+        aria-label="Toggle sidenav"
+        class=""
+        mat-icon-button
+        type="button">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>my-app</span>
+      <button [matMenuTriggerFor]="menu" mat-button>
+        <mat-icon aria-label="Side nav toggle icon">color_lens</mat-icon>
+        Choose Theme
+      </button>
+      <mat-menu #menu="matMenu">
+        <button (click)="chooseTheme(item)" *ngFor="let item of themeList" mat-menu-item>{{item|titlecase}}</button>
+      </mat-menu>
+
+    </mat-toolbar>
+    <!--</header>-->
+
+    <!-- Add Content Here -->
+    <main class="content">
+      <ng-content></ng-content>
+    </main>
+    <footer align="center">
+      <app-footer></app-footer>
+    </footer>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
